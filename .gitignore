@@ -1,0 +1,20 @@
+# Credenciales — NUNCA subir
+backend/.env
+backend/credentials.json
+backend/token.json
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+
+# Citas (datos de clientes)
+citas/
+
+# Sistema
+.DS_Store
+Thumbs.db
+*.log

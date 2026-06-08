@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web de prueba — Peluquería Estilo</title>
+  <style>
+    body{font-family:system-ui,sans-serif;max-width:700px;margin:60px auto;padding:0 20px;color:#222}
+    h1{color:#2563eb}
+  </style>
+</head>
+<body>
+  <h1>Peluquería Estilo</h1>
+  <p>Esta es una web de ejemplo de un cliente. Abajo a la derecha aparece la
+     burbuja del chatbot 💬. Haz clic para probarlo.</p>
+  <p>Prueba a preguntar: «¿Qué horario tenéis?», «¿Cuánto cuesta un tinte?»
+     o «Quiero reservar para cortarme el pelo el sábado».</p>
+
+  <!-- ESTA es la única línea que el cliente pega en su web -->
+  <script src="../widget/widget.js" data-api="http://localhost:5000/chat"></script>
+</body>
+</html>
