@@ -33,13 +33,27 @@ TOKEN_FILE = os.path.join(_BASE, "token.json")
 # Auth
 # ---------------------------------------------------------------------------
 def _get_service():
-    """Devuelve un servicio autenticado de Google Calendar."""
+    """Devuelve un servicio autenticado de Google Calendar.
+    En producción lee el token desde la variable GCAL_TOKEN_JSON (Railway/cloud).
+    En local lo lee desde token.json.
+    """
+    import json as _json
     creds = None
-    if os.path.exists(TOKEN_FILE):
+
+    # Producción: token como variable de entorno
+    token_env = os.environ.get("GCAL_TOKEN_JSON")
+    if token_env:
+        creds = Credentials.from_authorized_user_info(_json.loads(token_env), SCOPES)
+
+    # Local: token como archivo
+    if not creds and os.path.exists(TOKEN_FILE):
         creds = Credentials.from_authorized_user_file(TOKEN_FILE, SCOPES)
+
     if not creds or not creds.valid:
         if creds and creds.expired and creds.refresh_token:
             creds.refresh(Request())
+            # Actualizar la variable de entorno en memoria con el token renovado
+            os.environ["GCAL_TOKEN_JSON"] = creds.to_json()
         else:
             if not os.path.exists(CREDENTIALS_FILE):
                 raise FileNotFoundError(
